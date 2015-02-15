@@ -136,6 +136,9 @@ class CTA_Enqueues {
 		wp_enqueue_script( 'wp-cta-admin-clear-stats-ajax-request', WP_CTA_URLPATH . 'js/ajax.clearstats.js', array( 'jquery' ) );
 		wp_localize_script( 'wp-cta-admin-clear-stats-ajax-request', 'ajaxadmin', array( 'ajaxurl' => admin_url('admin-ajax.php'), 'wp_call_to_action_clear_nonce' => wp_create_nonce('wp-call-to-action-clear-nonce') ) );
 
+		/* Add character counter to the text editor in the Tweet to download module */
+		wp_enqueue_script( 'jquery-character-counter', WP_CTA_URLPATH . 'js/libraries/jqEasyCharCounter/jquery.jqEasyCharCounter.js' );
+		
 		/*  Enqueue supporting js for Global Settings page */
 		if (isset($_GET['page']) && $_GET['page'] === 'wp_cta_global_settings') {
 			wp_enqueue_script('cta-settings-js', WP_CTA_URLPATH . 'js/admin/admin.global-settings.js');
