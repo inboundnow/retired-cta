@@ -118,3 +118,34 @@ array(
     );
 /* define dynamic template markup */
 $wp_cta_data[$key]['markup'] = file_get_contents($this_path . 'index.php');
+
+// add a character counter to the tweet to download module
+add_action( 'admin_print_footer_scripts','cta_tweettodownload_print_admin_scripts' );
+
+function cta_tweettodownload_print_admin_scripts() {
+    $screen = get_current_screen();
+
+        if ( !isset( $screen ) || $screen->id != 'wp-call-to-action' || $screen->parent_base != 'edit' ) {
+           return;
+        }
+
+        ?>
+        <script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$('.share-text .wp-call-to-action-option-td textarea').addClass('tweet-to-download-share-text');
+				$('.tweet-to-download-share-text').jqEasyCounter({
+					maxChars: 120,                  // max number of characters
+					maxCharsWarning: 100,           // max number of characters before warning is shown
+					msgFontSize: '12px',            // css font size for counter
+					msgFontColor: '#000000',        // css font color for counter
+					msgFontFamily: 'Arial',         // css font family for counter
+					msgTextAlign: 'right',          // css text-align for counter (left, right, center)
+					msgWarningColor: '#FF0000',     // css font color for warning
+					msgAppendMethod: 'insertAfter'  // position of counter relative to the input element(insertAfter, insertBefore)
+				});
+			});
+        </script>
+
+        <?php
+
+}
