@@ -15,7 +15,10 @@
     background-position:left bottom;
     cursor:pointer;
   }
-
+  a.do-not-track {
+      display:inline-block;
+      text-align:center;
+  }
   #arrow-down {
 
     width:32px;
