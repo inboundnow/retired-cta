@@ -1,4 +1,4 @@
-/*! Inbound Analyticsv1.0.0 | (c) 2015 Inbound Now | https://github.com/inboundnow/cta */
+/*! Inbound Analyticsv1.0.0 | (c) 2016 Inbound Now | https://github.com/inboundnow/cta */
 /**
  * # _inbound
  *
@@ -1893,6 +1893,7 @@ var InboundForms = (function(_inbound) {
                 /* Set Lead cookie ID */
                 if (leadID) {
                     utils.createCookie("wp_lead_id", leadID);
+                    utils.createCookie("conversion_funnel", JSON.stringify(page_views));
                     _inbound.totalStorage.deleteItem('page_views'); // remove pageviews
                     _inbound.totalStorage.deleteItem('tracking_events'); // remove events
                 }

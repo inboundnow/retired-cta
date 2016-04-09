@@ -195,11 +195,11 @@ gulp.task('sync-leads', function () {
 });
 gulp.task('sync-pro', function () {
     return gulp.src(['./shared/**'])
-        .pipe(gulp.dest('./../_inbound-pro/core/shared/'));
+        .pipe(gulp.dest('./../_inbound-now/core/shared/'));
 });
 gulp.task('sync-translations', function () {
-    return gulp.src(['../translations/lang/**'])
-        .pipe(gulp.dest('./../_inbound-pro/assets/lang'));
+    return gulp.src(['../translations/lang/**.mo'])
+        .pipe(gulp.dest('./../_inbound-now/assets/lang'));
 });
 /* end sync */
 
