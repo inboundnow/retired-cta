@@ -186,7 +186,7 @@ gulp.task("generateDocs", function() {
 });
 
 /* sync shared folders with `sudo gulp sync` */
-gulp.task('sync', ['sync-lp', 'sync-leads', 'sync-pro', 'sync-translations']);
+gulp.task('sync', [ 'sync-lp', 'sync-leads', 'sync-pro', 'sync-translations']);
 gulp.task('sync-lp', function () {
         return gulp.src(['./shared/**']).pipe(gulp.dest('../landing-pages/shared/'));
 });

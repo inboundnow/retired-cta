@@ -1893,9 +1893,9 @@ var InboundForms = (function(_inbound) {
                 /* Set Lead cookie ID */
                 if (leadID) {
                     utils.createCookie("wp_lead_id", leadID);
-                    utils.createCookie("conversion_funnel", JSON.stringify(page_views));
                     _inbound.totalStorage.deleteItem('page_views'); // remove pageviews
                     _inbound.totalStorage.deleteItem('tracking_events'); // remove events
+                    utils.eraseCookie('inbound_page_views'); // remove events
                 }
 
                 _inbound.trigger('form_after_submission', formData);
@@ -3409,8 +3409,10 @@ var _inboundPageTracking = (function(_inbound) {
                 variation_id: inbound_settings.variation_id,
                 post_type: inbound_settings.post_type,
                 current_url: window.location.href,
+                page_views: JSON.stringify(_inbound.PageTracking.getPageViews()),
                 json: '0'
             };
+
             var firePageCallback = function(leadID) {
                 //_inbound.Events.page_view_saved(leadID);
             };
