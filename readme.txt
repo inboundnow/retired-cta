@@ -69,6 +69,10 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 
 == Changelog ==
 
+= 2.6.7 =
+* Bug Fix for Popups
+* Code refactoring
+
 = 2.6.6 =
 * Fixing dynamic shortcodes
 * Disabling async.
