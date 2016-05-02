@@ -982,7 +982,7 @@ if ( !class_exists( 'CTA_Render' ) ) {
             $dynamic_css = str_replace('}}', ']]', $dynamic_css);
 
             $oParser = new Sabberworm\CSS\Parser($dynamic_css);
- 
+
             $oCss = $oParser->parse();
 
             foreach($oCss->getAllDeclarationBlocks() as $oBlock) {
