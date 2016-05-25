@@ -295,9 +295,22 @@ if (!class_exists('CTA_Metaboxes')) {
 <span class='bab-stat-letter'>
 <?php echo $CTA_Variations->vid_to_letter( $post->ID, $vid); ?>
 </span>
-            <?php if ($variation_status != 1) { ?>
-              <span class='is-paused'>(<?php _e('Paused', 'landing-pages') ?>)</span>
-            <?php } ?> 
+            <?php
+			if ( isset($variation_status) && $variation_status != 1) {
+				switch($variation_status) {
+					case 'paused':
+						?>
+						<span class='is-paused'>(<?php _e('Paused', 'landing-pages') ?>)</span>
+						<?php
+						break;
+					default:
+						?>
+						<span class='is-<?php echo $variation_status; ?>'>(<?php echo $variation_status; ?>)</span>
+						<?php
+						break;
+				}
+
+			} ?>
             
 
  
