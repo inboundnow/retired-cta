@@ -302,7 +302,7 @@ if ( !class_exists( 'CTA_Render' ) ) {
 
                 $link = Inbound_API::analytics_track_links( array(
                     'cta_id' => $selected_cta['id'],
-                    'id' => ( isset($_COOKIE['wp_lead_id']) ? $_COOKIE['wp_lead_id'] : null ) ,
+                    'id' => null, /* lead_id - let's not set this here */
                     'page_id' => ( isset($post) && $post->ID  ? $post->ID : null ) ,
                     'vid' => $vid ,
                     'url' => $href ,
