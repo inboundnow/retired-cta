@@ -778,7 +778,7 @@ if ( !class_exists( 'CTA_Render' ) ) {
 
             foreach ($conditional_tokens as $key => $value) {
                 if (is_array($value) && !empty($value[0])) {
-                    $debug_output = true;
+                    $debug_output = false;
                     foreach ($value as $test => $conditional_code) {
                         //echo $conditional_code;
                         $clean_val = trim(str_replace(array("{%", "%}"), "", $conditional_code));
@@ -1323,7 +1323,7 @@ if ( !class_exists( 'CTA_Render' ) ) {
                 </script>
             <?php }
 
-            if($_GET['wp-cta-variation-id']) {
+            if(isset($_GET['wp-cta-variation-id'])) {
                 ?>
                 <script type="text/javascript">
                     jQuery(document).ready(function($) {
