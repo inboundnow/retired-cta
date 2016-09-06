@@ -529,7 +529,7 @@ if (!class_exists('Inbound_Forms')) {
          */
         static function register_script() {
             wp_enqueue_style('inbound-shortcodes');
-            wp_enqueue_script('spin.min', str_replace('/classes/', '/shortcodes/js/spin.min.js', plugin_dir_url( __FILE__ )), null, null, true); 
+            wp_enqueue_script('spin.min', INBOUNDNOW_SHARED_URLPATH .  '/shortcodes/js/spin.min.js', null, null, true);
         }
 
         /**
@@ -586,9 +586,9 @@ if (!class_exists('Inbound_Forms')) {
 
 						//spinner
 						var opts = {
-							  lines: 11 // The number of lines to draw
+							  lines: 7 // The number of lines to draw
 							, length: 0 // The length of each line
-							, width: 15 // The line thickness
+							, width: 7 // The line thickness
 							, radius: 25 // The radius of the inner circle
 							, scale: scale // Scales overall size of the spinner
 							, corners: 1 // Corner roundness (0..1)
