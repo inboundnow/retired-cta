@@ -578,7 +578,8 @@ if (!class_exists('Inbound_Forms')) {
 						/*Disable button and add spinner to form*/
 						
 						var target = jQuery(this).find("#inbound_form_submit"),
-							spinnerColor = jQuery(target).css("background"),
+							spinnerColor = jQuery(target).css("color"),
+							buttonWidth = jQuery(target).css("width"),
 							scale = jQuery(target).css("font-size");
 							scale = scale.replace("px", "");
 							scale = scale / 32;
@@ -602,15 +603,17 @@ if (!class_exists('Inbound_Forms')) {
 							, zIndex: 2e9 // The z-index (defaults to 2000000000)
 							, className: "inbound-form-spinner" // The CSS class to assign to the spinner
 							, top: "50%" // Top position relative to parent
-							, left: "calc(100% + "+(scale * 2 * 35)+"px)" // Left position relative to parent
+							, left: "50%" // Left position relative to parent
 							, shadow: false // Whether to render a shadow
 							, hwaccel: false // Whether to use hardware acceleration
 							, position: "absolute" // Element positioning
 							}
-
+							
+						jQuery(target).prop("disabled",true).html("&nbsp;").css("width" , buttonWidth);
+					
 						var spinner = new Spinner(opts).spin(target[0]);
 						
-						jQuery(target).prop("disabled",true);
+						
 					});
 
 					jQuery("#inbound_form_submit br").remove(); /* remove br tags */
