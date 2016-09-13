@@ -128,12 +128,17 @@ class Inbound_Events {
      */
     public static function store_form_submission( $lead ){
 
-        if (! isset($lead['raw_params']) )  {
+        if (!isset($lead['raw_params']) )  {
             return;
         }
 
         parse_str($lead['raw_params'] , $raw_params );
         $details = array_merge($raw_params,$lead);
+
+        if (!$raw_params['inbound_form_id']) {
+            return;
+        }
+
         $args = array(
             'event_name' => 'inbound_form_submission',
             'page_id' => $lead['page_id'],
