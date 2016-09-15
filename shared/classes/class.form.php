@@ -580,6 +580,7 @@ if (!class_exists('Inbound_Forms')) {
 						var target = jQuery(this).find("#inbound_form_submit"),
 							spinnerColor = jQuery(target).css("color"),
 							buttonWidth = jQuery(target).css("width"),
+							buttonHeight = jQuery(target).css("height"),
 							scale = jQuery(target).css("font-size");
 							scale = scale.replace("px", "");
 							scale = scale / 40;
@@ -609,7 +610,7 @@ if (!class_exists('Inbound_Forms')) {
 							, position: "absolute" // Element positioning
 							}
 							
-						jQuery(target).prop("disabled",true).html("&nbsp;").css("width" , buttonWidth);
+						jQuery(target).prop("disabled",true).html("").css({"width" : buttonWidth, "height" : buttonHeight});
 					
 						var spinner = new Spinner(opts).spin(target[0]);
 						
