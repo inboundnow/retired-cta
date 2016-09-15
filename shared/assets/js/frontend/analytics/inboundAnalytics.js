@@ -2841,6 +2841,45 @@ var _inboundEvents = (function(_inbound) {
     return _inbound;
 
 })(_inbound || {});
+
+function inboundRedirectOption(){
+	/*button == the button that was clicked, form == the form that butoon belongs to, formRedirectUrl == the link that the form redirects to*/
+	var button = document.querySelectorAll('button.inbound-button-submit[disabled]')[0],
+		form = button.form,
+		formRedirectUrl = form.querySelectorAll('input[value][type="hidden"][name="inbound_furl"]:not([value=""])');
+	
+	/*If the redirect link is not set, the length will be 0*/
+	if(formRedirectUrl.length){
+
+		/*Store the redirect link incase the user changes his mind and wants to be redirected*/
+		var redirLink = formRedirectUrl[0]['value'];
+		
+		/*Prepend the div that contains the checkmark. Also provides the hover target for shaking the spinner*/
+		jQuery(button).prepend('<div id="redir-check" is_checked="1">\u2705\uFE0E</div>');
+
+		var redirCheck = jQuery("#redir-check");
+		
+
+		jQuery(redirCheck).click(function(){ 
+			var checked = jQuery(redirCheck).attr('is_checked');
+
+			if(checked == true){
+				//Change the checkmark into an X mark and remove the redirect link
+				jQuery(redirCheck).attr('is_checked', '0').html('\u274E\uFE0E');
+				jQuery(formRedirectUrl).val('');
+
+			}else if(checked == false){
+				//Change the X mark back into a checkmark and replace the redirect link
+				jQuery(redirCheck).attr('is_checked', '1').html('\u2705\uFE0E');
+				jQuery(formRedirectUrl).val(redirLink);
+
+			}
+		});
+
+	}
+}
+_inbound.add_action( 'form_before_submission', inboundRedirectOption, 10 );
+
 /* LocalStorage Component */
 var InboundTotalStorage = (function (_inbound){
 
