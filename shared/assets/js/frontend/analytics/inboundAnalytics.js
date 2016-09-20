@@ -2842,8 +2842,7 @@ var _inboundEvents = (function(_inbound) {
 
 })(_inbound || {});
 
-/*inboundRedirectOption gives the user the option to choose not to be redirected on form submit.*/
-function inboundRedirectOption(){
+function inboundFormNoRedirect(){
 	/*button == the button that was clicked, form == the form that button belongs to, formRedirectUrl == the link that the form redirects to, if set*/
 	
 	/*Get the button...*/
@@ -2854,44 +2853,44 @@ function inboundRedirectOption(){
 	/*If it is an iframe*/
 	else if(window.frames.frameElement.tagName.toLowerCase() == "iframe"){
 		var button = window.frames.frameElement.contentWindow.document.querySelectorAll('button.inbound-button-submit')[0];
-		}
+	}
 	
 	var	form = button.form,
 		formRedirectUrl = form.querySelectorAll('input[value][type="hidden"][name="inbound_furl"]:not([value=""])');
-	
 
-	/*If the redirect link is not set, the length will be 0 and the function will stop here*/
-	if(formRedirectUrl.length){
-
-		/*Store the redirect link incase the user changes his mind and wants to be redirected*/
-		var redirLink = formRedirectUrl[0]['value'];
-		
-		/*The timeout slows down the execution just a little bit so the redir-check div gets added after any other HTML does*/
-		setTimeout(function(){	
-			/*Prepend the div that contains the checkmark. Also provides the hover target for shaking the spinner*/
-			jQuery(button).prepend('<div id="redir-check" is_checked="1">\u2705\uFE0E</div>');
-
-			var redirCheck = jQuery("#redir-check");
-
-			jQuery(redirCheck).click(function(){ 
-				var checked = jQuery(redirCheck).attr('is_checked');
-
-				if(checked == true){
-					//Change the checkmark into an X mark and remove the redirect link
-					jQuery(redirCheck).attr('is_checked', '0').html('\u274E\uFE0E');
-					jQuery(formRedirectUrl).val('');
-
-				}else if(checked == false){
-					//Change the X mark back into a checkmark and replace the redirect link
-					jQuery(redirCheck).attr('is_checked', '1').html('\u2705\uFE0E');
-					jQuery(formRedirectUrl).val(redirLink);
-
-					}
-			});
-			}, 10);//timeout
+	/*If the redirect link is not set, or there is a single space in it, the form isn't supposed to redirect. So set the action for void*/
+	if(formRedirectUrl.length == 0 || formRedirectUrl[0]['value'] == 'IA=='){
+		form.action = 'javascript:void(0)';
 	}
 }
-_inbound.add_action( 'form_before_submission', inboundRedirectOption, 10 );
+
+_inbound.add_action( 'form_before_submission', inboundFormNoRedirect, 10 );
+
+function inboundFormNoRedirectContent(){
+	
+	/*If not an iframe*/
+	if(window.frames.frameElement == null){
+		var button = document.querySelectorAll('button.inbound-button-submit[disabled]')[0];
+	}
+	/*If it is an iframe*/
+	else if(window.frames.frameElement.tagName.toLowerCase() == "iframe"){
+		var button = window.frames.frameElement.contentWindow.document.querySelectorAll('button.inbound-button-submit')[0];
+		}
+	
+	var	form = button.form,
+		formRedirectUrl = form.querySelectorAll('input[value][type="hidden"][name="inbound_furl"]:not([value=""])'),
+		btnBackground = jQuery(button).css('background'),
+		btnFontColor = jQuery(button).css('color'),
+		btnHeight = jQuery(button).css('height'),
+		spinner = button.getElementsByClassName('inbound-form-spinner');
+		
+	if(formRedirectUrl.length == 0 || formRedirectUrl[0]['value'] == 'IA=='){
+		jQuery(spinner).remove();
+		jQuery(button).prepend('<div id="redir-check"><i class="fa fa-check-square" aria-hidden="true" style="background='+ btnBackground +'; color='+ btnFontColor +'; font-size:calc('+ btnHeight +' * .42);"></i></div>');
+	}
+}
+
+_inbound.add_action( 'form_after_submission', inboundFormNoRedirectContent, 10 );
 
 /* LocalStorage Component */
 var InboundTotalStorage = (function (_inbound){
