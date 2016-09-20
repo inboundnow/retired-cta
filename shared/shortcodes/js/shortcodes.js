@@ -554,19 +554,19 @@ var InboundShortcodes = {
             
             /*Redirect whitespace cleaning*/
             if(form_values.indexOf("&inbound_shortcode_redirect_2=+")){
-				var	form_values2 = form_values.substring(form_values.indexOf("&inbound_shortcode_redirect_2=") + 30, form_values.indexOf("&inbound_shortcode_notify"));
-				var saveString = form_values2;
-				var length = form_values2.length;
-				console.log(form_values2);
-				for(i = 0; i < length; i++){
-						if(form_values2.charAt(0) == '+'){
-							form_values2 = form_values2.replace('+', '');
-						}else{
-							break;
-						}
-					}
-				form_values = form_values.replace(saveString, form_values2);
-			} 
+		var form_values2 = form_values.substring(form_values.indexOf("&inbound_shortcode_redirect_2=") + 30, form_values.indexOf("inbound_shortcode_notify"));
+		var saveString = form_values2;
+		var length = form_values2.length;
+		
+		for(i = 0; i < length; i++){
+			if(form_values2.charAt(0) == '+'){
+				form_values2 = form_values2.replace('+', '');
+			}else{
+				break;
+			}
+		}
+		form_values = form_values.replace(saveString, form_values2);
+		} 
             
             if (shortcode_name === "insert_inbound_form_shortcode" && form_name == "") {
                 jQuery(".step-item.first").click();
