@@ -331,7 +331,7 @@ if ( !class_exists( 'CTA_Render' ) ) {
                 $anchor->setAttribute('rel', implode(' ', $rel));
 
                 $anchor->setAttribute('href', $link['url']);
-                error_log($href);
+
                 //$variation_html = str_replace('&amp;', '&' , $variation_html );
                 //$variation_html = str_replace('&amp;', '&' , $variation_html );
 
