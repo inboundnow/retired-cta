@@ -69,9 +69,11 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 
 == Changelog ==
 
-= 2.7.8 =
+= 2.8.1 =
 * Preventing spiders directly accessing tracking links from inflating conversion statistics.
 * Adding nofollow automatically to tracked links. 
+* Fixing issue with pause/playing not working. 
+* Fixing clear stats issue within the CTA edit page. 
 
 = 2.7.7 =
 * Fixing issue with tracking link not recording conversions if lead not registered.
