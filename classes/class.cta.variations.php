@@ -43,12 +43,13 @@ if ( ! class_exists( 'CTA_Variations' ) ) {
 			}
 
 			$cta_id = intval($_GET['post']);
-			$variation_id = intval($_GET['vid']);
 			$post = get_post(intval($cta_id));
 
 			if (!isset($post)||$post->post_type!='wp-call-to-action') {
 				return;
 			}
+
+			$variation_id = (isset($_GET['vid'])) ? intval($_GET['vid']) : 0;
 
 			/* Let's disable autosave */
 			if(!defined('AUTOSAVE_INTERVAL')) {
