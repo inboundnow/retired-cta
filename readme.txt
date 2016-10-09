@@ -69,6 +69,9 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 
 == Changelog ==
 
+= 2.8.7 =
+* [fix] fixing include file for Inbound Forms when wp-config.php is outside of it's normal location.
+
 = 2.8.6 =
 * [fix] checks if mb_convert_encoding exists before it attempts to make use of it.
 
