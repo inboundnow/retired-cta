@@ -12,7 +12,7 @@ if (!class_exists('CTA_Dynamic_Widget')) {
 	class CTA_Static_Widget extends WP_Widget {
 		private $cta_templates;
 
-		function CTA_Static_Widget() {
+		function __construct() {
 
 			/* Widget settings. */
 			$widget_ops = array( 'classname' => 'class_CTA_Static_Widget', 'description' => __('Use this widget to manually display Calls to Action in sidebars.', 'cta'));
