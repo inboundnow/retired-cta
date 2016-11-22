@@ -12,7 +12,7 @@ if (!class_exists('CTA_Dynamic_Widget')) {
 
 	class CTA_Dynamic_Widget extends WP_Widget {
 
-		function CTA_Dynamic_Widget() {
+		function __construct() {
 
 			/* Widget settings. */
 			$widget_ops = array( 'classname' => 'class_CTA_Dynamic_Widget', 'description' => __('Use this widget to accept Calls to Action placements.', 'cta'));
