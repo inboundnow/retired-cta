@@ -98,7 +98,7 @@ var InboundShortcodes = {
                     row_output = row_output.replace(re, val);
                 }
                 else {
-                    row_output = row_output.replace(re, input.val());
+                    row_output = row_output.replace(re, input.val().replace(/"/g, "'"));
                 }
                 //console.log(newoutput);
             });
