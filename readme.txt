@@ -69,6 +69,10 @@ The plugin is also fully extendable and has a number of actions, filters, and ho
 
 == Changelog ==
 
+= 3.0.1 =
+* [refactor] We stopped storing classes into global variables.
+* [bug fixes] Serveral context-dependant bug fixes in place
+
 = 2.9.1 =
 * [improvement] updating shared components for minor bug fixes including a fix for Inbound Form submissions when using Firefox
 
