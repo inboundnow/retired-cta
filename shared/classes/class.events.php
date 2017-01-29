@@ -546,6 +546,11 @@ class Inbound_Events {
                 $title = "";
                 $capture_id = "";
                 break;
+            default:
+                $link = "";
+                $title = "";
+                $capture_id = "";
+                break;
         }
 
         $array['link'] = ($link) ? $link : '#';
