@@ -100,6 +100,13 @@ if (!class_exists('LeadStorage')) {
 				$lead['lead_lists'] = explode(",", $mappedData['inbound_form_lists']);
 			}
 
+			/* prepate lead tags */
+			$lead['lead_tags'] = (isset($args['lead_tags'])) ? $args['lead_tags'] : null;
+			if ( !$lead['lead_tags'] && array_key_exists('inbound_form_tags', $mappedData) ) {
+				$lead['lead_tags'] = explode(",", $mappedData['inbound_form_tags']);
+			}
+
+
 			/* Look for direct key matches & clean up $lead_data */
 			$lead = apply_filters( 'inboundnow_store_lead_pre_filter_data', $lead, $args);
 
@@ -168,8 +175,7 @@ if (!class_exists('LeadStorage')) {
                             
                             /*change the lead status to waiting for double optin*/
                             update_post_meta( $lead['id'] , 'wp_lead_status' , 'double-optin');
-                            
-                        
+
                             /*add the lead to the double optin confirmation list*/
                             Inbound_Leads::add_lead_to_list($lead['id'], $double_optin_list_id);
                             Inbound_List_Double_Optin::send_double_optin_confirmation($lead);
@@ -181,7 +187,21 @@ if (!class_exists('LeadStorage')) {
 
 					/* store lead list cookie */
 					if (class_exists('Leads_Tracking')) {
-						Leads_Tracking::cookie_lead_lists($lead['id']);
+						Leads_Tracking::cookie_lead_lists($lead['id'] , $normal_lists);
+					}
+				}
+
+				/* Add Leads to List on creation */
+				if(!empty($lead['lead_tags']) && is_array($lead['lead_tags'])){
+
+					/*add the lead to all lists that don't require double optin*/
+					foreach ( $lead['lead_tags'] as $tag_id ) {
+						Inbound_Leads::add_tag_to_lead( $lead['id'] , intval($tag_id) );
+					}
+
+					/* store lead list cookie */
+					if (class_exists('Leads_Tracking')) {
+						Leads_Tracking::cookie_lead_tags($lead['id'] , $lead['lead_tags']);
 					}
 				}
 
