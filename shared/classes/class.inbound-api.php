@@ -731,6 +731,7 @@ if (!class_exists('Inbound_API')) {
 			return $results;
 		}
 
+
 		/**
 		 *  Sets the API defaults for the /leads/(get) endpoint
 		 *
@@ -879,6 +880,9 @@ if (!class_exists('Inbound_API')) {
 				/* set lead meta data */
 				$meta_data = get_post_custom($ID);
 				$leads['results'][ $ID ]['meta_data'] = $meta_data;
+
+				/* set the lead sources */
+				$leads['results'][ $ID ]['sources'] = Inbound_Events::get_lead_sources( $ID );
 
 			endwhile;
 
