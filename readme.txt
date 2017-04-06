@@ -1,4 +1,4 @@
-=== Calls to Action ===
+=== WordPress Calls to Action ===
 
 Contributors: Hudson Atwell, David Wells, Giulio Dapreala, ahmedkaludi, Matt Bisset
 Donate link: mailto:hudson@inboundnow.com
