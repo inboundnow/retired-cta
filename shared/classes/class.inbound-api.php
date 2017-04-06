@@ -216,6 +216,28 @@ if (!class_exists('Inbound_API')) {
 		}
 
 		/**
+		 * Get tracked link arguments given a storage token
+		 * @param $token
+		 * @return array|mixed
+		 */
+		public static function get_args_from_token( $token ) {
+
+			/* Pull record from database */
+			$table_name = $wpdb->prefix . "inbound_tracked_links";
+			$profiles = $wpdb->get_results("SELECT * FROM {$table_name} where `token` = '{$token}' ;");
+
+			if (empty( $profiles )) {
+				return array();
+			}
+
+			/* Get first result & prepare args */
+			$profile = $profiles[0];
+			$args = unserialize($profile->args);
+
+			return $args;
+		}
+
+		/**
 		 * Displays a missing authentication error if all the parameters aren't
 		 * provided
 		 *
@@ -1366,19 +1388,14 @@ if (!class_exists('Inbound_API')) {
 			$token = ( isset($wp_query->query_vars[ self::$tracking_endpoint ]) ) ? $wp_query->query_vars[ self::$tracking_endpoint ] : $parts[1] ;
 
 			/* Pull record from database */
-			$table_name = $wpdb->prefix . "inbound_tracked_links";
-			$profiles = $wpdb->get_results("SELECT * FROM {$table_name} where `token` = '{$token}' ;");
+			$args = self::get_args_from_token($token);
 
 			/* If no results exist send user to homepage */
-			if (empty( $profiles )) {
+			if (!$args) {
 				/* redirect to  url */
 				header('Location: '. get_site_url() );
 				exit;
 			}
-
-			/* Get first result & prepare args */
-			$profile = $profiles[0];
-			$args = unserialize($profile->args);
 
 			/* get lead id from cookie if it exists */
 			$lead_id_cookie = (isset($_COOKIE['wp_lead_id'])) ? $_COOKIE['wp_lead_id'] : 0;
