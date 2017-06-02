@@ -102,7 +102,7 @@ function wp_cta_load_variation( cta_id, vid, disable_ajax ) {
 	/* Poll the ajax server for the correct variation to display */
 	else {
 		jQuery.ajax({
-			type: "GET",
+			type: "POST",
 			url: cta_variation.admin_url,
 			dataType: "html",
 			async: false, /* required atm */
@@ -151,8 +151,10 @@ jQuery(document).ready(function($) {
 		/* Add Tracking Classes & Reveal CTAs */
 		wp_cta_add_tracking_classes(ctas);
 
-		/* Record Impressions */
-		wp_cta_record_impressions(ctas);
+		/* Record Impressions manually when page_tracking is off */
+		if (cta_variation.page_tracking == 'off' && inbound_settings.post_type != 'landing-page') {
+			wp_cta_record_impressions(ctas);
+		}
 
 	} , timeout );
 
