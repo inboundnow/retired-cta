@@ -47,6 +47,14 @@ if ( !class_exists('Inbound_Upgrade_Routines') ) {
                 'callback' => array( __CLASS__ , 'alter_events_table_1_0_5')
             );
 
+            /* alter events table */
+            self::$routines['events-table-3'] = array(
+                'id' => 'events-table-3',
+                'scope' => 'shared',
+                'introduced' => '1.0.8',
+                'callback' => array( __CLASS__ , 'alter_events_table_1_0_8')
+            );
+
             /* alter automation queue table */
             self::$routines['automation-queue-table-1'] = array(
                 'id' => 'automation-queue-table-1',
@@ -168,6 +176,22 @@ if ( !class_exists('Inbound_Upgrade_Routines') ) {
 
             $wpdb->get_results( "ALTER TABLE {$table_name} ADD `rule_id` mediumint(20) NOT NULL" );
             $wpdb->get_results( "ALTER TABLE {$table_name} ADD `job_id` mediumint(20) NOT NULL" );
+
+        }
+
+
+        /**
+         * @migration-type: alter inbound_events table
+         * @mirgration: adds columns list_id funnel, and source to events table
+         */
+        public static function alter_events_table_1_0_8() {
+
+            global $wpdb;
+
+            require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+            $table_name = $wpdb->prefix . "inbound_events";
+
+            $wpdb->get_results( "ALTER TABLE {$table_name} ADD `comment_id` mediumint(20) NOT NULL" );
 
         }
 
