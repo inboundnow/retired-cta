@@ -181,7 +181,7 @@ if (!class_exists('Inbound_List_Double_Optin')) {
             ?>
             <script>
                 jQuery(document).ready(function(){
-                    jQuery('input#submit').on('click', function(){
+                    jQuery('input#submit, .edit-tag-actions .button').on('click', function(){
                         var settingData = {};
                         var id = "<?php echo $list->term_id; ?>";
                         /*get the value of all inboundnow lead list options*/
