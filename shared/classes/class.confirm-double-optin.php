@@ -97,7 +97,7 @@ if(!class_exists('Inbound_Confirm_Double_Optin')){
                 $params['list_ids'] = explode( ',' , $params['list_ids']);
             }
             $args = array_merge( $params , $_GET );
-            $token = Inbound_API::analytics_get_tracking_code( $args )
+            $token = Inbound_API::analytics_get_tracking_code( $args );
 
             if(!defined('INBOUND_PRO_CURRENT_VERSION')){
                 $double_optin_page_id = get_option('list-double-optin-page-id', '');
